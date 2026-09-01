@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Doritos — Ouse Ser Intenso</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --red: #d71920;
+      --dark-red: #78060d;
+      --orange: #ff5a16;
+      --orange-light: #ff9e29;
+      --yellow: #ffc247;
+      --cream: #fff6ea;
+      --black: #111111;
+      --gray: #5e514c;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+      color: var(--black);
+      background: var(--cream);
+      font-family: "Inter", sans-serif;
+    }
+
+    ::selection {
+      color: #fff;
+      background: var(--red);
+    }
+
+    .progress-bar {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: var(--yellow);
+      box-shadow: 0 0 15px rgba(255,194,71,.8);
+    }
+
+    .noise {
+      position: fixed;
+      z-index: 900;
+      inset: 0;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    nav {
+      position: fixed;
+      z-index: 500;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      mix-blend-mode: difference;
+    }
+
+    .logo {
+      color: #fff;
+      font-family: "Anton", sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .7rem;
+      font-weight: 900;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 110vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 75% 30%, rgba(255,190,53,.8), transparent 19%),
+        radial-gradient(circle at 20% 90%, rgba(255,94,22,.8), transparent 25%),
+        linear-gradient(125deg, #70050c, #d71920 50%, #ff6418);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border: 2px solid rgba(255,255,255,.2);
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 48vw;
+      height: 48vw;
+      left: -22vw;
+      top: 20vh;
+    }
+
+    .hero::after {
+      width: 35vw;
+      height: 35vw;
+      right: -14vw;
+      bottom: 8vh;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      width: min(1250px, 90%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .hero-copy {
+      animation: heroText 1.2s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: .68rem;
+      font-weight: 900;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 3px;
+      background: var(--yellow);
+    }
+
+    h1,
+    h2,
+    h3,
+    .big-number {
+      font-family: "Anton", sans-serif;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 700px;
+      font-size: clamp(4.5rem, 11vw, 10rem);
+      line-height: .81;
+      letter-spacing: -4px;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--yellow);
+    }
+
+    .hero-copy p {
+      max-width: 500px;
+      margin: 35px 0;
+      color: rgba(255,255,255,.87);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      padding: 18px 27px;
+      border-radius: 100px;
+      color: var(--red);
+      background: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      font-size: .7rem;
+      font-weight: 900;
+      transition: .35s ease;
+    }
+
+    .button::after {
+      content: "↗";
+      font-size: 1rem;
+    }
+
+    .button:hover {
+      transform: translateY(-7px) scale(1.04);
+      box-shadow: 0 18px 38px rgba(0,0,0,.25);
+    }
+
+    .hero-product {
+      position: relative;
+      min-height: 670px;
+      display: grid;
+      place-items: center;
+      perspective: 1300px;
+    }
+
+    .hero-product::before {
+      content: "";
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: rgba(255,194,71,.28);
+      filter: blur(5px);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .product {
+      position: relative;
+      z-index: 2;
+      width: min(470px, 80vw);
+      transform-style: preserve-3d;
+      animation: floating 5s ease-in-out infinite;
+      transition: transform .25s ease;
+    }
+
+    .product::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: 15%;
+      right: 15%;
+      bottom: 3%;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(80,0,0,.45);
+      filter: blur(20px);
+    }
+
+    .product img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter:
+        drop-shadow(-28px 35px 30px rgba(75,0,0,.42))
+        contrast(1.08)
+        saturate(1.1);
+      transform: rotateY(-12deg) rotateZ(-3deg);
+      transition: transform .35s ease;
+    }
+
+    .hero-label {
+      position: absolute;
+      z-index: 5;
+      right: 0;
+      bottom: 16%;
+      padding: 13px 18px;
+      color: var(--red);
+      background: #fff;
+      font-size: .65rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      transform: rotate(-7deg);
+      box-shadow: 8px 10px 0 rgba(80,0,0,.2);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      z-index: 5;
+      bottom: 30px;
+      left: 50%;
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: .62rem;
+      font-weight: 900;
+      transform: translateX(-50%);
+    }
+
+    .scroll-indicator span {
+      display: block;
+      width: 1px;
+      height: 55px;
+      margin: 15px auto 0;
+      background: #fff;
+      animation: scrollLine 1.8s infinite;
+    }
+
+    .marquee {
+      overflow: hidden;
+      padding: 22px 0;
+      color: #fff;
+      background: var(--black);
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      min-width: 100%;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee strong {
+      margin: 0 25px;
+      color: var(--yellow);
+      font-family: "Anton", sans-serif;
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .intro {
+      min-height: 95vh;
+      padding: 150px 8vw;
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      align-items: center;
+      gap: 100px;
+      background: var(--cream);
+    }
+
+    .intro-number {
+      color: var(--red);
+      font-size: clamp(8rem, 20vw, 18rem);
+      line-height: .7;
+      opacity: .15;
+    }
+
+    .intro h2 {
+      max-width: 800px;
+      margin-bottom: 30px;
+      color: var(--red);
+      font-size: clamp(4rem, 8vw, 8rem);
+      line-height: .85;
+    }
+
+    .intro p {
+      max-width: 600px;
+      color: var(--gray);
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .scroll-story {
+      height: 300vh;
+      background: var(--cream);
+    }
+
+    .story-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 8vw;
+    }
+
+    .story-sticky::before {
+      content: "";
+      position: absolute;
+      width: 65vw;
+      height: 65vw;
+      left: 8%;
+      top: 10%;
+      border-radius: 50%;
+      background: var(--orange);
+      opacity: .92;
+    }
+
+    .story-image {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+    }
+
+    .story-image .product {
+      width: min(420px, 72vw);
+    }
+
+    .story-text {
+      position: relative;
+      z-index: 4;
+      max-width: 530px;
+    }
+
+    .story-step {
+      display: none;
+      animation: reveal .7s ease both;
+    }
+
+    .story-step.active {
+      display: block;
+    }
+
+    .story-counter {
+      margin-bottom: 20px;
+      color: var(--red);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+    }
+
+    .story-text h2 {
+      margin-bottom: 28px;
+      color: var(--red);
+      font-size: clamp(4rem, 7vw, 8rem);
+      line-height: .82;
+    }
+
+    .story-text p {
+      max-width: 500px;
+      color: #4c2923;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .features {
+      min-height: 100vh;
+      padding: 150px 8vw;
+      color: #fff;
+      background: var(--black);
+    }
+
+    .features-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .features h2 {
+      max-width: 700px;
+      color: #fff;
+      font-size: clamp(4rem, 8vw, 8rem);
+      line-height: .84;
+    }
+
+    .features-heading p {
+      max-width: 300px;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .feature-card {
+      min-height: 360px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(145deg, #262626, #111);
+      transition: .45s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px);
+      border-color: var(--orange);
+      background: linear-gradient(145deg, #4c1717, #171717);
+    }
+
+    .feature-icon {
+      color: var(--yellow);
+      font-size: 3.5rem;
+      font-weight: 900;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 15px;
+      color: #fff;
+      font-size: 2.5rem;
+      line-height: .9;
+    }
+
+    .feature-card p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .flavors {
+      min-height: 100vh;
+      padding: 150px 7vw;
+      background: #fff;
+    }
+
+    .flavors h2 {
+      max-width: 800px;
+      margin-bottom: 70px;
+      color: var(--black);
+      font-size: clamp(4rem, 8vw, 8rem);
+      line-height: .84;
+    }
+
+    .flavor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .flavor-card {
+      min-height: 420px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      color: #fff;
+      background: var(--red);
+      transition: .45s ease;
+    }
+
+    .flavor-card:nth-child(2) {
+      background: var(--orange);
+    }
+
+    .flavor-card:nth-child(3) {
+      background: #e89a13;
+    }
+
+    .flavor-card:hover {
+      transform: translateY(-18px) rotate(1deg);
+      box-shadow: 0 25px 45px rgba(120,20,0,.25);
+    }
+
+    .flavor-card small {
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .flavor-card h3 {
+      font-size: 4rem;
+      line-height: .85;
+    }
+
+    .flavor-card p {
+      max-width: 260px;
+      line-height: 1.6;
+    }
+
+    .numbers {
+      min-height: 70vh;
+      padding: 120px 8vw;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      gap: 30px;
+      color: #fff;
+      background:
+        linear-gradient(120deg, rgba(115,0,8,.86), rgba(218,25,28,.88)),
+        var(--red);
+    }
+
+    .number-item {
+      text-align: center;
+    }
+
+    .big-number {
+      display: block;
+      color: var(--yellow);
+      font-size: clamp(5rem, 10vw, 10rem);
+      line-height: .8;
+    }
+
+    .number-item p {
+      margin-top: 25px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .75rem;
+      font-weight: 900;
+    }
+
+    .final {
+      min-height: 100vh;
+      padding: 150px 8vw;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #fff;
+      background:
+        radial-gradient(circle at 50% 20%, #ff9c24, transparent 28%),
+        linear-gradient(135deg, #8b0710, #d71920 50%, #ff6418);
+    }
+
+    .final h2 {
+      max-width: 1100px;
+      color: #fff;
+      font-size: clamp(5rem, 12vw, 13rem);
+      line-height: .78;
+    }
+
+    .final p {
+      max-width: 590px;
+      margin: 35px auto;
+      color: rgba(255,255,255,.86);
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 35px 7vw;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: #fff;
+      background: var(--black);
+      font-size: .72rem;
+      letter-spacing: 1px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(70px);
+      transition: opacity .9s ease, transform .9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-24px) rotate(2deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(.9);
+        opacity: .25;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: .45;
+      }
+    }
+
+    @keyframes heroText {
+      from {
+        opacity: 0;
+        transform: translateY(35px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(35px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollLine {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      100% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero-content,
+      .intro,
+      .story-sticky {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero-copy p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .eyebrow {
+        justify-content: center;
+      }
+
+      .hero-product {
+        min-height: 480px;
+      }
+
+      .hero-label {
+        right: 8%;
+        bottom: 10%;
+      }
+
+      .intro {
+        gap: 30px;
+        padding-top: 100px;
+        padding-bottom: 100px;
+      }
+
+      .intro-number {
+        font-size: 8rem;
+      }
+
+      .story-sticky {
+        height: 100svh;
+        padding: 30px 8vw;
+        align-content: center;
+      }
+
+      .story-sticky::before {
+        width: 100vw;
+        height: 100vw;
+        left: -10%;
+        top: 8%;
+      }
+
+      .story-image {
+        position: absolute;
+        inset: 5% 0 auto;
+        opacity: .35;
+        transform: scale(.72);
+      }
+
+      .story-text {
+        margin-top: 170px;
+      }
+
+      .features-heading {
+        display: block;
+      }
+
+      .features-heading p {
+        margin-top: 25px;
+      }
+
+      .feature-grid,
+      .flavor-grid,
+      .numbers {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-card,
+      .flavor-card {
+        min-height: 300px;
+      }
+
+      .numbers {
+        gap: 80px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="progress-bar"></div>
+  <div class="noise"></div>
+
+  <nav>
+    <div class="logo">DORITOS®</div>
+
+    <ul class="nav-links">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#sabores">Sabores</a></li>
+      <li><a href="#final">Ousadia</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+
+        <div class="hero-copy">
+          <div class="eyebrow">Ouse sair do comum</div>
+
+          <h1>
+            Libere o
+            <span>crocante.</span>
+          </h1>
+
+          <p>
+            Uma experiência feita para quem gosta de intensidade,
+            personalidade e muito sabor em cada momento.
+          </p>
+
+          <a class="button" href="#experiencia">
+            Começar experiência
+          </a>
+        </div>
+
+        <div class="hero-product">
+          <div class="product" id="heroProduct">
+            <img
+              src="./doritos-sem-fundo.png"
+              alt="Pacote de Doritos Nacho Cheese"
+            >
+
+            <div class="hero-label">
+              NACHO CHEESE
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="scroll-indicator">
+        Role para explorar
+        <span></span>
+      </div>
+    </section>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        <strong>INTENSIDADE</strong>
+        SABOR • ATITUDE • CROCRÂNCIA • OUSADIA •
+        <strong>INTENSIDADE</strong>
+        SABOR • ATITUDE • CROCÂNCIA • OUSADIA •
+      </div>
+    </div>
+
+    <section class="intro reveal">
+      <div class="intro-number">01</div>
+
+      <div>
+        <div class="eyebrow">Não é apenas um snack</div>
+
+        <h2>É uma atitude.</h2>
+
+        <p>
+          Doritos é para quem não quer viver no modo automático.
+          É abrir o pacote, mudar o clima e transformar um momento comum
+          em uma experiência muito mais marcante.
+        </p>
+      </div>
+    </section>
+
+    <section class="scroll-story" id="experiencia">
+      <div class="story-sticky">
+
+        <div class="story-image">
+          <div class="product" id="storyProduct">
+            <img
+              src="./doritos-sem-fundo.png"
+              alt="Pacote de Doritos Nacho Cheese"
+            >
+          </div>
+        </div>
+
+        <div class="story-text">
+
+          <article class="story-step active">
+            <div class="story-counter">01 / 03</div>
+            <h2>Quebre o padrão.</h2>
+            <p>
+              Algumas experiências foram feitas para chamar atenção.
+              A embalagem marcante é apenas o começo.
+            </p>
+          </article>
+
+          <article class="story-step">
+            <div class="story-counter">02 / 03</div>
+            <h2>Sinta a intensidade.</h2>
+            <p>
+              O sabor Nacho Cheese combina crocância,
+              tempero marcante e uma mordida impossível de esquecer.
+            </p>
+          </article>
+
+          <article class="story-step">
+            <div class="story-counter">03 / 03</div>
+            <h2>Faça do seu jeito.</h2>
+            <p>
+              Compartilhe com seus amigos, leve para qualquer lugar
+              e transforme cada pausa em um momento com mais personalidade.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="features-heading reveal">
+        <div>
+          <div class="eyebrow">Por que Doritos?</div>
+          <h2>Mais que sabor.</h2>
+        </div>
+
+        <p>
+          Uma combinação de textura, personalidade e intensidade
+          criada para não passar despercebida.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">01</div>
+
+          <div>
+            <h3>Crocância<br>marcante.</h3>
+            <p>
+              O som da primeira mordida já anuncia que algo diferente começou.
+            </p>
+          </div>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">02</div>
+
+          <div>
+            <h3>Sabor<br>intenso.</h3>
+            <p>
+              Nacho Cheese para quem não aceita experiências sem graça.
+            </p>
+          </div>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-icon">03</div>
+
+          <div>
+            <h3>Atitude<br>única.</h3>
+            <p>
+              Para quem escolhe sair do comum e criar o próprio momento.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="flavors" id="sabores">
+      <div class="eyebrow">Escolha sua experiência</div>
+
+      <h2 class="reveal">
+        Um sabor para cada tipo de ousadia.
+      </h2>
+
+      <div class="flavor-grid">
+
+        <article class="flavor-card reveal">
+          <small>01 / CLÁSSICO</small>
+
+          <h3>Nacho<br>Cheese.</h3>
+
+          <p>
+            O sabor marcante que combina queijo, tempero e muita crocância.
+          </p>
+        </article>
+
+        <article class="flavor-card reveal">
+          <small>02 / PICANTE</small>
+
+          <h3>Sweet<br>Chili.</h3>
+
+          <p>
+            Uma combinação doce e picante para quem gosta de surpreender.
+          </p>
+        </article>
+
+        <article class="flavor-card reveal">
+          <small>03 / INTENSO</small>
+
+          <h3>Queijo<br>Nacho.</h3>
+
+          <p>
+            Uma experiência cremosa, saborosa e cheia de personalidade.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="numbers">
+      <div class="number-item reveal">
+        <span class="big-number" data-number="100">0</span>
+        <p>Por cento de atitude</p>
+      </div>
+
+      <div class="number-item reveal">
+        <span class="big-number" data-number="365">0</span>
+        <p>Dias para sair do comum</p>
+      </div>
+
+      <div class="number-item reveal">
+        <span class="big-number" data-number="1">0</span>
+        <p>Escolha: ser intenso</p>
+      </div>
+    </section>
+
+    <section class="final" id="final">
+      <div class="reveal">
+        <div class="eyebrow">Não siga o fluxo</div>
+
+        <h2>Faça<br>barulho.</h2>
+
+        <p>
+          A vida é curta demais para experiências sem graça.
+          Abra um pacote, aumente o volume e transforme o comum.
+        </p>
+
+        <a class="button" href="#inicio">
+          Voltar ao início
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>DORITOS®</span>
+    <span>O sabor de ser diferente.</span>
+    <span>© 2025</span>
+  </footer>
+
+  <script>
+    const progressBar = document.querySelector(".progress-bar");
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const documentHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress = (scrollTop / documentHeight) * 100;
+
+      progressBar.style.width = `${progress}%`;
+    });
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    revealElements.forEach(element => {
+      revealObserver.observe(element);
+    });
+
+    const story = document.querySelector(".scroll-story");
+    const storyProduct = document.querySelector("#storyProduct");
+    const storyImage = storyProduct.querySelector("img");
+    const storySteps = document.querySelectorAll(".story-step");
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function updateStory() {
+      const rect = story.getBoundingClientRect();
+      const totalScroll = rect.height - window.innerHeight;
+
+      if (totalScroll <= 0) {
+        return;
+      }
+
+      const progress = clamp(-rect.top / totalScroll, 0, 1);
+
+      const rotation = -12 + progress * 300;
+      const scale = .82 + progress * .22;
+      const movement = Math.sin(progress * Math.PI) * -45;
+
+      storyProduct.style.transform =
+        `translateY(${movement}px) scale(${scale})`;
+
+      storyImage.style.transform =
+        `rotateY(${rotation}deg)
+         rotateZ(${-3 + progress * 9}deg)`;
+
+      const activeStep = Math.min(
+        storySteps.length - 1,
+        Math.floor(progress * storySteps.length)
+      );
+
+      storySteps.forEach((step, index) => {
+        step.classList.toggle("active", index === activeStep);
+      });
+    }
+
+    window.addEventListener("scroll", updateStory, {
+      passive: true
+    });
+
+    window.addEventListener("resize", updateStory);
+
+    updateStory();
+
+    const heroProduct = document.querySelector("#heroProduct");
+    const heroImage = heroProduct.querySelector("img");
+
+    document.addEventListener("mousemove", event => {
+      const x = (event.clientX / window.innerWidth - .5) * 2;
+      const y = (event.clientY / window.innerHeight - .5) * 2;
+
+      heroProduct.style.transform =
+        `translate(${x * 10}px, ${y * -10}px)`;
+
+      heroImage.style.transform =
+        `rotateY(${-12 + x * 20}deg)
+         rotateX(${y * -10}deg)
+         rotateZ(-3deg)`;
+    });
+
+    const counters = document.querySelectorAll(".big-number");
+
+    const counterObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const counter = entry.target;
+          const target = Number(counter.dataset.number);
+          let current = 0;
+
+          const updateCounter = () => {
+            const increment = Math.max(1, Math.ceil(target / 45));
+            current += increment;
+
+            if (current >= target) {
+              counter.textContent = target;
+              return;
+            }
+
+            counter.textContent = current;
+            requestAnimationFrame(updateCounter);
+          };
+
+          updateCounter();
+          counterObserver.unobserve(counter);
+        });
+      },
+      {
+        threshold: 0.7
+      }
+    );
+
+    counters.forEach(counter => {
+      counterObserver.observe(counter);
+    });
+  </script>
+
+</body>
+</html>
